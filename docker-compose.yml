@@ -2,22 +2,15 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: development.dockerfile
-    volumes:
-      - ./frontend:/app
     ports:
-      - "5173:5173"
+      - "5173:80"
 
   backend:
     build:
       context: ./backend
-      dockerfile: development.dockerfile
-    volumes:
-      - ./backend/:/app
     ports:
       - "8000:8000"
-    # Gleam run only accepts sigkill
-    stop_grace_period: 0s
+
   timescaledb:
     image: timescale/timescaledb:latest-pg17
     container_name: timescaledb
@@ -29,7 +22,7 @@ services:
       POSTGRES_PASSWORD: changeme
       POSTGRES_DB: punahou_place
     volumes:
-      - timescaledb_test_data:/var/lib/postgresql/data
+      - timescaledb_data:/var/lib/postgresql/data
 
 volumes:
-  timescaledb_test_data:
+  timescaledb_data:
