@@ -13,8 +13,13 @@ RUN cd /app && gleam export erlang-shipment;
 
 FROM erlang:${ERLANG_VERSION}-alpine AS dev
 COPY --from=gleam /bin/gleam /bin/gleam
-COPY . /app/
 WORKDIR /app
+# To cache the dependencies
+COPY gleam.toml .
+RUN mkdir src;
+RUN gleam build;
+
+COPY . .
 ENTRYPOINT ["gleam"]
 CMD ["run"]
 
