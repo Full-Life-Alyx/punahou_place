@@ -1,6 +1,6 @@
 # https://gleam.run/deployment/linux-server/#create-a-dockerfile
 ARG ERLANG_VERSION=28.0.2.0
-ARG GLEAM_VERSION=v1.12.0
+ARG GLEAM_VERSION=v1.13.0
 
 # Gleam stage
 FROM ghcr.io/gleam-lang/gleam:${GLEAM_VERSION}-scratch AS gleam

@@ -5,7 +5,7 @@ import wisp
 import wisp/wisp_mist
 
 pub fn main() -> Nil {
-  let secret_key_base = "..."
+  let secret_key_base = "SDFNAGFKJASF"
   let assert Ok(_) =
     wisp_mist.handler(
       fn(_req) {

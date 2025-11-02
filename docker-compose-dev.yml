@@ -1,26 +1,23 @@
 services:
   frontend:
-    image: node:20-alpine
-    working_dir: /app
-    command: npm run dev 
+    build:
+      context: ./frontend
+      dockerfile: development.dockerfile
     volumes:
       - ./frontend:/app
-    environment:
-      - VITE_HOST=0.0.0.0
     ports:
-    - "5173:5173"
+      - "5173:5173"
 
   backend:
     build:
-      context: ./backend/
-      target: dev
-    develop:
-      watch:
-        - action: rebuild
-          path: ./backend/
-    stop_grace_period: 0s
+      context: ./backend
+      dockerfile: development.dockerfile
+    volumes:
+      - ./backend/:/app
     ports:
-    - "8000:8000"
+      - "8000:8000"
+    # Gleam run only accepts sigkill
+    stop_grace_period: 0s
   timescaledb:
     image: timescale/timescaledb:latest-pg17
     container_name: timescaledb
@@ -29,11 +26,10 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_USER: postgres
-      # TODO: CHANGE ON DEPLOYMENT
       POSTGRES_PASSWORD: changeme
       POSTGRES_DB: punahou_place
     volumes:
       - timescaledb_data:/var/lib/postgresql/data
 
 volumes:
-  timescaledb_data: 
+  timescaledb_data:
