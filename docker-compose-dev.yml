@@ -1,0 +1,28 @@
+services:
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    command: npm run dev 
+    volumes:
+      - ./frontend:/app
+    environment:
+      - VITE_HOST=0.0.0.0
+    ports: 
+    - "5173:5173"
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg17
+    container_name: timescaledb
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      # TODO: CHANGE ON DEPLOYMENT
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: punahou_place
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+
+volumes:
+  timescaledb_data: 
