@@ -1,5 +1,5 @@
 {
-  description = "Gleam Erlang dev environment";
+  description = "Punahou place dev flake";
   inputs = {nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";};
 
   outputs = {
@@ -19,6 +19,13 @@
           rebar3
           beam27Packages.elixir
           beam27Packages.hex
+
+          nodejs
+          vscode-langservers-extracted
+          typescript
+          pnpm
+
+          nodePackages.typescript-language-server
         ];
       };
     });
