@@ -1,3 +1,4 @@
+# TODO: Add env vars VITE_SERVER_URL for frontend and add FRONTEND_URL to backend
 services:
   frontend:
     build:

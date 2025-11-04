@@ -8,6 +8,8 @@ services:
       - /app/node_modules # Seperate local and docker node_modules
     ports:
       - "5173:5173"
+    environment:
+      - VITE_SERVER_URL=http://localhost:8000/
 
   backend:
     build:
@@ -17,6 +19,8 @@ services:
       - ./backend/:/app
     ports:
       - "8000:8000"
+    environment:
+      - FRONTEND_URL=http://localhost:5173
     # Gleam run only accepts sigkill
     stop_grace_period: 0s
   timescaledb:
